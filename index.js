@@ -9,14 +9,26 @@ const io =new Server(server);
 
 app.get("/", (req,res)=>{
 
-    res.sendFile(__dirname + "app/index.html")
+    res.sendFile(__dirname + "/index.html")
 })
 
 
 io.on('connection', (socket)=>{
+  
+  
+    // socket.broadcast.emit('hi');
     console.log("a user connected")
+
+    socket.on('chat message', (msg)=>{
+        
+        io.emit('chat message', msg);
+    })
+
 })
 
 server.listen(3000, ()=>{
     console.log("listening to port 3000")
 })
+
+
+
